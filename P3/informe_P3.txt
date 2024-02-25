@@ -1,0 +1,91 @@
+Miguel Marcos Trillo   miguel.marcos.trillo@udc.es
+Gael Garcia Arias  	gael.garciaa@udc.es
+Brais Bello Pardo  	brais.bello.pardo@udc.es
+
+INTRODUCCIÓN
+
+Esta práctica de algoritmos consiste en implementar las operaciones crear y quitar menor para monticulos de minimos.Primero validaremos que las operaciones funcionen correctamente y despues demostraremos empiricamente que crearMonticulo para un vector de n elementos se ejecuta en un tiempo O(n). Por otro lado, debemos implementar la función de ordenación de montículos y validar su correcto funcionamiento, además se debe calcular la complejidad de dicho algoritmo en la ordenación de tres vectores, uno ya ordenado ascendentemente, uno descendentemente y uno aleatoriamente. Hemos implementado para todo estos más funciones, hundir, una para crear montículos vacíos, una para vaciar montículos, otra para mostrar montículos y otra para eliminar el menor elemento de ellos.Estudiaremos sus tiempos(en microsegundos) para tomar conclusiones acerca de su eficiencia.
+Estos tiempos serán medidos en microsegundos(unidad de tiempo empleada) mediante la función microsegundos(),con la que a través de ella obtenemos la hora del sistema.
+
+
+MÁQUINA
+Nombre del dispositivo:miguel-HP-Laptop-15s-fq4xxx
+Con un procesador 11th Gen Intel(R) Core(TM) i7-1195G7@2.90GhZ , un sistema operativo Ubuntu 22.04.3 LTS, con una memoria de 16 GiB
+
+
+
+La complejidad teórica del algoritmo de creación de montículos la determinamos y concluímos que era O(n) y para la ordenación de montículos concluímos que es O(n*log(n)).
+En cuanto a las cotas, establecimos la cota ajustada como n^1 para la creación de n montículo, y su subestimada es n^0.8 y su sobrestimada n^1.2. Para la ordenación ascendente, descendente y aleatoria (n*log(n)), para la subestimada cogimos (n*log(n))^0.8 y para las sobrestimadas (n*log(n))^1.2 . Estos valores serán los que en cada una de esas cotas dividan los valores obtenidos para t, el tiempo resultante de cada medición. Aunque en el caso del vector  descendente hemos establecido que sea (n*log(n))^0.98, y en el ascendente (n*log(n))^0.978 , para que en el caso de las cotas ajustadas los resultados sean algo más ajustados.
+
+La incógnita n ,que será el tamaño de los vectores aleatorios, sigue una progresión geométrica. Parte de 500 y aumentando n*2 hasta 32000. Emplearemos una constante K=1000 que será el número de iteraciones empleadas en cada bucle del algoritmo.
+Además, emplearemos una función para generar vectores de números pseudoaleatorios en un rango[-n,..n].
+
+Como observamos en todas las tablas, los valores de las cotas subestimadas crecen poco a poco tendiendo hacia infinito, creciendo según aumenta el número de iteraciones (n).
+En las cotas sobreestimadas los valores decrecen poco a poco y tienden a 0.
+Además, los valores de la cota ajustada tienden a una constante en todas las tablas(constante la cual estará documentada debajo de su correspondiente tabla).
+
+Dentro de las tablas podemos observar una serie de filas que están destacadas mediante un (*), esto quiere decir que el tiempo alcanzado para una repetición es menor de 500 microsegundos, entonces el programa procederá a repetir el proceso un número K de repeticiones que escogemos nosotros como el que mejor se ajusta a los datos para que no sean muy pequeños.
+
+
+
+Creacion de monticulo con inicialización aleatoria
+              n           t(n)               t(n)/n^0.80                    t(n)/n               t(n)/n^1.20
+(*)         500          7.810                0.05413461                0.01562000                0.00450699
+(*)        1000         15.622                0.06219230                0.01562200                0.00392407
+(*)        2000         31.289                0.07154308                0.01564450                0.00342102
+(*)        4000         62.349                0.08188068                0.01558725                0.00296727
+(*)        8000        123.947                0.09348975                0.01549338                0.00256760
+(*)       16000        248.014                0.10744350                0.01550088                0.00223631
+          32000        506.000                0.12590138                0.01581250                0.00198596
+
+
+En esta primera tabla para la creación de montículos los tiempos de la cota ajustada tienden hacia 0.015.
+Asi pues en esta tabla no encontramos ninguna anomalía.
+
+Ordenación por monticulos con inicialización aleatoria
+              n           t(n)      t(n)/(n*log(n))^0.80           t(n)/(n*log(n))      t(n)/(n*log(n))^1.20
+(*)         500         43.341                0.06966135                0.01394810                0.00279279
+(*)        1000         89.185                0.07565231                0.01291085                0.00220337
+(*)        2000        189.205                0.08539185                0.01244622                0.00181409
+(*)        4000        405.791                0.09809369                0.01223139                0.00152514
+           8000        886.000                0.11536187                0.01232309                0.00131637
+          16000       1909.000                0.13452322                0.01232523                0.00112926
+          32000       4004.000                0.15333245                0.01206200                0.00094886
+
+          
+En esta segunda tabla para la ordenación por monticulos con inicialización aleatoria los tiempos de la cota ajustada tienden hacia 0.012.
+Tampoco encontramos ninguna anomalía.
+
+Ordenación por monticulos con inicialización descendente
+              n           t(n)      t(n)/(n*log(n))^0.80      t(n)/(n*log(n))^0.98      t(n)/(n*log(n))^1.20
+(*)         500         27.440                0.04410391                0.01037165                0.00176817
+(*)        1000         64.475                0.05469174                0.01113887                0.00159289
+(*)        2000        150.559                0.06795017                0.01200741                0.00144355
+(*)        4000        328.090                0.07931067                0.01217819                0.00123311
+           8000        738.000                0.09609149                0.01283738                0.00109648
+          16000       1782.000                0.12557379                0.01461158                0.00105413
+          32000       3342.000                0.12798128                0.01298234                0.00079198
+          
+En esta tercera tabla para la ordenacion con inicialización descendente los tiempos de la cota ajustada tienden hacia 0.012.
+Podremos considerar como anómalo el valor de la primera fila ya que es más bajo en comparación a los demás.Y el valor de la penúltima fila que es más alto que los demás.
+
+Ordenación por monticulos con inicialización ascendente
+              n           t(n)      t(n)/(n*log(n))^0.80      t(n)/(n*log(n))^0.98      t(n)/(n*log(n))^1.20
+(*)         500         23.215                0.03731313                0.00891697                0.00149592
+(*)        1000         58.372                0.04951479                0.01026439                0.00144212
+(*)        2000        140.400                0.06336522                0.01141494                0.00134615
+(*)        4000        311.877                0.07539143                0.01181993                0.00117217
+           8000        674.000                0.08775835                0.01198929                0.00100139
+          16000       1451.000                0.10224892                0.01218532                0.00085833
+          32000       2993.000                0.11461639                0.01192602                0.00070928
+          
+En la cuarta tabla para la ordenación con inicialización ascendente los tiempos de la cota ajustada tienden hacua 0.011.
+Podremos considerar mediciones anómalas las dos primeras filas ya que sus valores son más bajos comparados con el resto de la tabla.
+
+
+
+
+CONCLUSIONES
+
+La primera conclusión que obtenemos en base a los resultados, es que en cuanto a la primera tabla, la creacion de monticulo sigue una complejidad lineal O(n) debido a que todas sus operaciones son de O(1) y las realiza n veces y así lo comprobamos realizando un estudio de la complejidad de su algoritmo. La función ordenar montículos solo consta de un for de n iteraciones, el resto de sus operaciones son O(1), una llamada a la función quitarMenor, para cada una de las iteraciones.
+La complejidad de la ordenación mediante montículos es O(n*logn), coincide con la complejidad teórica. Los tres tiempos son similares entre sí,esto quiere decir que en este algoritmo la inicialización del vector no influirá en su eficiencia y que su complejidad será la misma para su mejor peor y medio caso,ya que hemos comprobado para los tres posibles casos como sus tiempos no varían mucho entre ellos, todo esto debido a que las únicas variaciones se deben a la operación hundir.
