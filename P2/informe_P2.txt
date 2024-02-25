@@ -1,0 +1,103 @@
+Miguel Marcos Trillo   miguel.marcos.trillo@udc.es
+Gael Garcia Arias  	gael.garciaa@udc.es
+Brais Bello Pardo  	brais.bello.pardo@udc.es
+
+INTRODUCCIÓN
+
+Esta práctica de algoritmos consiste en pasar pseudocódigo a lenguaje C,en este caso,dos algoritmos de ordenación;Uno por inserción y el otro la ordenación shell.En esta práctica ordenaremos un vector de n números enteros de forma ascendente. Validaremos estos dos algoritmos de ordenación desde su mejor caso (que el vector ya este ordenado de forma ascendente) hasta su peor caso (que el vector este ordenado de forma descendente) y un último caso que será un vector de números aleatorios. En los dos siguientes ejercicios mediante el método empírico se medirá la eficiencia de los dos procedimientos y compararemos sus tiempos(en microsegundos) para tomar conclusiones acerca de qué algoritmo es más eficiente.
+Estos tiempos serán medidos en microsegundos(unidad de tiempo empleada) mediante la función microsegundos(),con la que a través de ella obtenemos la hora del sistema.
+
+
+MÁQUINA
+Nombre del dispositivo:miguel-HP-Laptop-15s-fq4xxx
+Con un procesador 11th Gen Intel(R) Core(TM) i7-1195G7@2.90GhZ , un sistema operativo Ubuntu 22.04.3 LTS, con una memoria de 16 GiB
+
+
+
+En la comprobación empírica partimos de una función t(n), que obtendremos mediante el análisis. En el caso de la ordenación por inserción tenemos O(n)= n²  para el peor caso, es decir para la inicialización descendente y para el caso medio(aleatorio),con una cota subestimada n^1.8 y una cota sobreestimada n^2.2 ,y  O(n)=n  para el mejor caso, ascendente, con una cota subestimada n^0.8 y una cota sobreestimada n^1.2.
+En el caso de shell tras el estudio de la complejidad del algoritmo concluímos que la cota ajustada será  O(n)=n para los tres casos pero , para ser más exactos en el aleatorio y descendente la cota ajustada será n^1.15 ,la subestimada n y la sobrestimada n^1.3, y en la ascendente ,la cota ajustada será n^1.12, la subestimada n^0.8 y la sobreestimada n^1.2.
+
+La incógnita n ,que será el tamaño de los vectores aleatorios, sigue una progresión geométrica. Parte de 500 y aumentando n*2 hasta 32000. Emplearemos una constante K=1000 que será el número de iteraciones empleadas en cada bucle del algoritmo.
+Además, emplearemos una función para generar vectores de números pseudoaleatorios en un rango[-n,..n].
+
+Como observamos, los valores de las cotas subestimadas tienden crecen poco a poco tendiendo hacia infinito, creciendo según aumenta el número de iteraciones (n). En las cotas ajustadas de la ordenación por inserción  sus tiempos tienden hacia 0.00046 en el caso de la inicialización aleatoria, 0.00092 en la inicialización descendente y 0.0022 en la ascendente.En el caso de shell, sus tiempos en la cota ajustada tienden a 0.033 en la aleatoria, 0.011 en la descendente y 0.010 en la ascendente.
+En las cotas sobreestimadas los valores decrecen poco a poco y tienden a 0.
+Además, los valores de la cota ajustada tienden a una constante en ambos algoritmos.
+
+Dentro de las tablas podemos observar una serie de filas que están destacadas mediante un (*), esto quiere decir que el tiempo alcanzado para una repetición es menor de 500 microsegundos, entonces el programa procederá a repetir el proceso un número K de repeticiones que escogemos nosotros como el que mejor se ajusta a los datos para que no sean muy pequeños.
+
+Podemos encontrar algunas medidas anómalas : en la inserción encontramos en la aleatoria 0.00047 y 0.00045 ,en la descendente 0.00093 y 0.00091 y en la ascendente 0.0023 y 0.0021.
+En la shell en la aleatoria 0.032 y 0.031  y en la ascendente 0.009.
+Como podemos ver estas anomalías son muy insignificativas ya que estamos hablando de valores mas pequeños que microsegundos, pero las destacamos por que no son exactamente iguales a los valores constantes que tomamos para las cotas ajustadas.
+
+
+Ordenación por inserción con inicialización aleatoria
+              n           t(n)     t(n)/n^1.8       t(n)/n^2     t(n)/n^2.2
+(*)         500        119.358       0.001655       0.000477       0.000138
+(*)        1000        468.450       0.001865       0.000468       0.000118
+           2000       1863.000       0.002130       0.000466       0.000102
+           4000       7215.000       0.002369       0.000451       0.000086
+           8000      29438.000       0.002776       0.000460       0.000076
+          16000     117694.000       0.003187       0.000460       0.000066
+          32000     475037.000       0.003694       0.000464       0.000058
+
+Ordenación por inserción con inicialización descendente
+              n           t(n)     t(n)/n^1.8       t(n)/n^2     t(n)/n^2.2
+(*)         500        232.923       0.003229       0.000932       0.000269
+           1000        920.000       0.003663       0.000920       0.000231
+           2000       3679.000       0.004206       0.000920       0.000201
+           4000      14724.000       0.004834       0.000920       0.000175
+           8000      58820.000       0.005546       0.000919       0.000152
+          16000     235296.000       0.006371       0.000919       0.000133
+          32000     946455.000       0.007359       0.000924       0.000116
+
+Ordenación por inserción con inicialización ascendente
+              n           t(n)     t(n)/n^0.8         t(n)/n     t(n)/n^1.2
+(*)         500          1.101       0.007632       0.002202       0.000635
+(*)        1000          2.230       0.008878       0.002230       0.000560
+(*)        2000          4.548       0.010399       0.002274       0.000497
+(*)        4000          9.090       0.011938       0.002272       0.000433
+(*)        8000         17.790       0.013418       0.002224       0.000369
+(*)       16000         37.329       0.016172       0.002333       0.000337
+(*)       32000         70.032       0.017425       0.002188       0.000275
+
+Ordenación shell con inicialización aleatoria
+              n           t(n)         t(n)/n    t(n)/n^1.15     t(n)/n^1.3
+(*)         500         39.749       0.079498       0.031298       0.012322
+(*)        1000         91.336       0.091336       0.032407       0.011499
+(*)        2000        206.407       0.103204       0.033002       0.010553
+(*)        4000        465.392       0.116348       0.033531       0.009664
+           8000       1040.000       0.130000       0.033766       0.008770
+          16000       2289.000       0.143063       0.033489       0.007840
+          32000       5096.000       0.159250       0.033597       0.007088
+
+Ordenación shell con inicialización descendente
+              n           t(n)         t(n)/n    t(n)/n^1.15     t(n)/n^1.3
+(*)         500         14.881       0.029762       0.011717       0.004613
+(*)        1000         32.864       0.032864       0.011661       0.004137
+(*)        2000         74.929       0.037464       0.011980       0.003831
+(*)        4000        161.735       0.040434       0.011653       0.003358
+(*)        8000        360.796       0.045100       0.011714       0.003043
+          16000        778.000       0.048625       0.011383       0.002665
+          32000       1704.000       0.053250       0.011234       0.002370
+
+Ordenación shell con inicialización ascendente
+              n           t(n)     t(n)/n^0.8    t(n)/n^1.12     t(n)/n^1.2
+(*)         500          9.817       0.068046       0.009314       0.005665
+(*)        1000         22.276       0.088682       0.009724       0.005595
+(*)        2000         50.096       0.114546       0.010061       0.005477
+(*)        4000        113.242       0.148717       0.010464       0.005389
+(*)        8000        243.012       0.183297       0.010332       0.005034
+          16000        530.000       0.229604       0.010367       0.004779
+          32000       1124.000       0.279670       0.010116       0.004412
+
+
+
+
+CONCLUSIONES
+
+En los tres casos para el caso de inserción y de shell se cumplen las premisas establecidas en teoría para las cotas, todo funciona como debería.
+Con todo esto podemos apreciar en la ordenación por inserción la clara diferencia en el análisis del vector ascendente, del descendente y del aleatorio. Los resultados son favorables al primer caso, ya que el vector se nos da ya ordenado, a diferencia del descendente, donde hay que ordenar todos sus elementos, siendo este el peor caso. Esa diferencia la vemos también en que  las siete iteraciones fueron destacadas con el (*), lo que quiere decir que, por su rapidez en la ejecución, tuvieron que repetirse varias veces para alcanzar el valor de tiempo mínimo establecidos, frente al vector descendente y aleatorio donde  nos encontramos con una y dos (*) respectivamente.Tarda mucho tiempo en ordenar vectores aleatorios y descendentes como podemos apreciar en los tiempos. Con ello podemos decir que este primer algoritmo es eficiente para el mejor caso pero muy ineficiente para cualquier otro caso donde no esté el vector inicialmente ordenado.
+
+Con la ordenación shell podemos observar que  los tiempos para el mejor y peor caso no son muy distintos de como eran en la inserción , por lo que es mucho más eficiente que la  inserción para el peor caso y el caso medio por lo que este algoritmo es mucho más eficiente y rápido que el primero.Por lo que concluímos que la ordenación shell es la mejor opción para la ordenación de números.
+
