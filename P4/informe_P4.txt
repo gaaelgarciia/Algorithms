@@ -1,0 +1,48 @@
+Miguel Marcos Trillo   miguel.marcos.trillo@udc.es
+Gael Garcia Arias  	gael.garciaa@udc.es
+Brais Bello Pardo  	brais.bello.pardo@udc.es
+
+INTRODUCCIÓN
+
+Esta práctica de algoritmos consiste primero en implementar en C pseudocódigo para calcular el camino mínimo de cada vértice a los restantes en grafos ponderados siguiendo el algoritmo de Dijkstra.Validaremos su correcto funcionamiento mediante dos casos de prueba y por último generaremos aleatoriamente grafos completos no digiridos para calcular empíricamente la complejidad computacional de este algoritmo.Estudiaremos sus tiempos(en microsegundos) para tomar conclusiones acerca de su eficiencia.
+Estos tiempos serán medidos en microsegundos(unidad de tiempo empleada) mediante la función microsegundos(),con la que a través de ella obtenemos la hora del sistema.
+
+
+MÁQUINA
+Nombre: Lenovo IdeaPad 3 15ALC6
+Procesador: AMD Ryzen 7 5700U with Radeon Graphics
+Memoria: 10012MB
+Sistema Operativo: Ubuntu 23.10
+
+
+La complejidad teórica del algoritmo Dijkstra la determinamos y concluímos que era O(n^3). Para la cota ajustada en este caso comprobamos que la que mejor se ajustaba era 2.855, para la subestimada 2.65 y para la sobreestimada 3.
+
+
+La incógnita n ,que será el tamaño de la matriz de adyacencia, sigue una progresión geométrica. Parte de 10 y aumentando n*2 hasta 640.
+Tenemos una constante K = 1000 la cual será empleada en la funcion de medición de tiempo cuando estes sean menores que 500.
+Además, emplearemos una función para crear matrices y otra para inicializarla con números pseudoaleatorios en un rango[0...TAM_MAX].
+
+Como observamos en todas las tablas, los valores de las cotas subestimadas crecen poco a poco tendiendo hacia infinito, creciendo según aumenta el tamaño de la matriz(n).
+En las cotas sobreestimadas los valores decrecen poco a poco y tienden a 0.
+Además, los valores de la cota ajustada tienden a una constante(constante la cual estará documentada debajo de su correspondiente tabla).
+
+Dentro de las tablas podemos observar una serie de filas que están destacadas mediante un (*), esto quiere decir que el tiempo medio alcanzado para una repetición es menor de 500 microsegundos, entonces el programa procederá a repetir el proceso un número K de repeticiones, que escogemos nosotros como el que mejor se ajusta a los datos para que no sean muy pequeños (en este caso K = 1000), y se devuelve el tiempo medio por iteración por cada K iteraciones.
+
+
+
+Algortimo de Dijkstra con inicialización aleatoria
+              n           t(n)              t(n)/n^2.650              t(n)/n^2.855                  t(n)/n^3
+(*)          10         16.527                0.03699934                0.02307778                0.01652700
+(*)          20        119.091                0.04247656                0.02298467                0.01488637
+             40        845.000                0.04801728                0.02254112                0.01320312
+             80       5977.000                0.05411213                0.02203745                0.01167383
+            160      42923.000                0.06191158                0.02187396                0.01047925
+            320     321610.000                0.07390637                0.02265303                0.00981476
+            640    2496459.000                0.09140022                0.02430416                0.00952324
+
+En esta tabla,los valores de  la cota ajustada tienden hacia 0.022.
+Encontramos también un valor ligeramente anómalo,  el tiempo de la última fila (de tamaño 640), ya que es algo mas grande que el resto.
+
+CONCLUSIONES
+
+La primera conclusión que obtenemos en base a los resultados, es que la ordenacion de una matriz de adyacencia generada de forma pseudoaleatoria con el algoritmo de Dijkstra, tiene una complejidad teorica de O(n^3), ya que consta de 3 bucles for del tamaño de n, sin embargo en la práctica hemos observado que la cota que más se ajustaba era 2.855,por lo que en nuestra tabla no coincide con la complejidad teórica. Esto es así ya que solo hemos hecho el algoritmo hasta una matriz de 640X640, si aumentaramos este numero los valores de la cota ajustada irían aumentado, por lo que estaria subestimada y acabaria acercandose a 3 exactos.Además en base a la tabla podemos concluír que es un algoritmo que para matrices de tamaño n ,siendo n un valor pequeño ,es un algoritmo mas o menos rápido pero que ya una vez aumentamos esa n el tiempo que tarda el algoritmo se dispara,siendo los tiempos altos y poco eficiente para matrices de gran tamaño.
