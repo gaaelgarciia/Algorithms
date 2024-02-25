@@ -1,0 +1,72 @@
+Gael Garcia Arias  	gael.garciaa@udc.es
+
+INTRODUCCIÓN
+
+Esta práctica consiste en pasar pseudocódigo a lenguaje C,en este caso,un algoritmo de ordenación.En esta práctica ordenaremos un vector de n números enteros de forma ascendente. Validaremos estos algoritmos de ordenación desde su mejor caso (que el vector ya este ordenado de forma ascendente) hasta su peor caso (que el vector este ordenado de forma descendente) y un último caso que será un vector de números aleatorios. En los dos siguientes ejercicios mediante el método empírico se medirá la eficiencia.
+Estos tiempos serán medidos en microsegundos(unidad de tiempo empleada) mediante la función microsegundos(),con la que a través de ella obtenemos la hora del sistema.
+
+
+MÁQUINA
+Nombre: Lenovo IdeaPad 3 15ALC6
+Procesador: AMD Ryzen 7 5700U with Radeon Graphics
+Memoria: 10012MB
+Sistema Operativo: Ubuntu 23.10
+
+
+
+En la comprobación empírica partimos de una función t(n), que obtendremos mediante el análisis. Para este algoritmo tenemos O(n)= n²  para el peor caso, es decir para la inicialización descendente y ascendente, con una cota subestimada n^1.8 y una cota sobreestimada n^2.2 ,y  O(n)=n  para el mejor caso, aleatorio, con una cota subestimada n^0.8 y una cota sobreestimada n^1.2.
+
+La incógnita n ,que será el tamaño de los vectores aleatorios, sigue una progresión geométrica. Parte de 500 y aumentando n*2 hasta 64000. Hay una constante K = 1000 la cual será empleada en la funcion de medición de tiempo cuando estes sean menores que 500.
+Además, empleo una función para generar vectores de números pseudoaleatorios en un rango[-n,..n].
+
+Como se puede observar, los valores de las cotas subestimadas crecen poco a poco tendiendo hacia infinito, creciendo según aumenta el número de iteraciones (n). Las cotas ajustadas de la ordenación   los tiempos tienden hacia 0.036 en el caso de la inicialización aleatoria, 0.00065 en la inicialización descendente y 0.00023 en la ascendente.
+
+Dentro de las tablas podemos observar una serie de filas que están destacadas mediante un (*), esto quiere decir que el tiempo alcanzado para una repetición es menor de 500 microsegundos, entonces el programa procederá a repetir el proceso un número K de repeticiones que escogemos nosotros como el que mejor se ajusta a los datos para que no sean muy pequeños.
+
+Podemos encontrar algunas medidas anómalas : 0.000686 en la descendente y se podria considerar como anomalo el 0.0325 de la aleatoria
+
+Como podemos ver estas anomalías son muy insignificativas ya que estamos hablando de valores mas pequeños que microsegundos, pero las destacamos por que no son exactamente iguales a los valores constantes que tomamos para las cotas ajustadas.
+
+
+Ordenación por metodo examen con inicialización aleatoria
+              n           t(n)    t(n)/n^0.80    t(n)/n^1.09    t(n)/n^1.20
+(*)         500         27.599     0.19130103     0.03254699     0.01592683
+(*)        1000         60.392     0.24042486     0.03357216     0.01516978
+(*)        2000        135.118     0.30895069     0.03540752     0.01477328
+(*)        4000        292.674     0.38435816     0.03615338     0.01392874
+           8000        636.000     0.47971697     0.03703432     0.01317495
+          16000       1325.000     0.57401051     0.03637019     0.01194735
+          32000       2857.000     0.71087003     0.03696769     0.01121321
+          64000       6086.000     0.86973693     0.03712158     0.01039718
+
+Ordenación por metodo examen con inicialización descendente
+              n           t(n)    t(n)/n^1.80       t(n)/n^2    t(n)/n^2.20
+(*)         500        171.552     0.00237821     0.00068621     0.00019800
+           1000        669.000     0.00266334     0.00066900     0.00016805
+           2000       2625.000     0.00300107     0.00065625     0.00014350
+           4000      10403.000     0.00341547     0.00065019     0.00012377
+           8000      41761.000     0.00393740     0.00065252     0.00010814
+          16000     165413.000     0.00447872     0.00064614     0.00009322
+          32000     660066.000     0.00513237     0.00064460     0.00008096
+          64000    2638780.000     0.00589223     0.00064423     0.00007044
+
+Ordenación por metodo examen con inicialización ascendente
+              n           t(n)    t(n)/n^1.80    t(n)/n^1.98    t(n)/n^2.20
+(*)         500         51.192     0.00070967     0.00023187     0.00005908
+(*)        1000        196.220     0.00078117     0.00022529     0.00004929
+           2000        787.000     0.00089975     0.00022905     0.00004302
+           4000       3019.000     0.00099119     0.00022273     0.00003592
+           8000      12012.000     0.00113254     0.00022465     0.00003110
+          16000      48213.000     0.00130541     0.00022856     0.00002717
+          32000     191459.000     0.00148870     0.00023008     0.00002348
+          64000     764708.000     0.00170754     0.00023295     0.00002041
+
+
+
+
+
+CONCLUSIONES
+
+Para esta ordenacion se cumplen las premisas establecidas en teoría para las cotas, todo funciona como debería.
+Con todo esto podemos apreciar la clara diferencia en el análisis del vector ascendente, del descendente y del aleatorio. Los resultados son favorables al aleatorio.El peor caso sera el descendente, donde hay que ordenar todos sus elementos. Esa diferencia la vemos también en que  las cuatro primeras iteraciones fueron destacadas con el (*), lo que quiere decir que, por su rapidez en la ejecución, tuvieron que repetirse varias veces para alcanzar el valor de tiempo mínimo establecidos, frente al vector descendente y ascendente donde  nos encontramos con una y dos (*) respectivamente. Con ello podemos decir que este primer algoritmo es eficiente para la ordenacion aleatoria, pero no si ya esta ordenado descentemente o ascendentemente.
+
