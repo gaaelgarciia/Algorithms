@@ -1,0 +1,104 @@
+Miguel Marcos Trillo   miguel.marcos.trillo@udc.es
+Gael Garcia Arias      gael.garciaa@udc.es
+Brais Bello Pardo      brais.bello.pardo@udc.es
+
+INTRODUCCIÓN
+Esta práctica de algoritmos consiste en pasar pseudocódigo a lenguaje C,serán dos algoritmos distintos que calculan la suma de la subsecuencia máxima, con el fin de comprobar en los dos primeros ejercicios que ambos devuelven el mismo resultado,primero para unos valores dados y después para valores aleatorios. En los dos siguientes ejercicios mediante el método empírico se medirá la eficiencia de los dos procedimientos y compararemos sus tiempos(en microsegundos) para tomar conclusiones acerca de que algoritmo es más eficiente.
+Estos tiempos serán medidos en microsegundos(unidad de tiempo empleada) mediante la función microsegundos(),con la que a través de ella obtenemos la hora del sistema.
+
+MÁQUINA
+Nombre del dispositivo:miguel-HP-Laptop-15s-fq4xxx
+Con un procesador 11th Gen Intel(R) Core(TM) i7-1195G7@2.90GhZ , un sistema operativo Ubuntu 22.04.3 LTS, con una memoria de 16 GiB
+
+
+
+En la comprobación empírica partimos de una función t(n) que la obtendremos mediante el análisis.En el primer algoritmo la cota ajustada será t(n)/n^2, la cota subestimada será t(n)/n^1.8 y la cota sobreestimada será t(n)/n^2.2.
+En el segundo algoritmo la cota ajustada será t(n)/n, la cota subestimada será t(n)/n^0.8 y la cota sobreestimada será t(n)/n^1.2.
+La incógnita n de las funciones que será el tamaño de los vectores aleatorios sigue una progresión geométrica.En el primer caso parte de 500 y aumentando n*2 hasta 32000 , y en el segundo caso desde 500 hasta 256000 con n=n*2.
+Además emplearemos una función para generar vectores de números pseudoaleatorios en un rango[-n,..n].
+
+SumaSubMax 1
+              n           t(n)     t(n)/n^1.8       t(n)/n^2     t(n)/n^2.2
+(*)         500     250.126000       0.003467       0.001001       0.000289
+           1000     985.000000       0.003921       0.000985       0.000247
+           2000    3915.000000       0.004476       0.000979       0.000214
+           4000   15701.000000       0.005155       0.000981       0.000187
+           8000   62603.000000       0.005902       0.000978       0.000162
+          16000  248819.000000       0.006737       0.000972       0.000140
+          32000  992585.000000       0.007718       0.000969       0.000122
+
+
+SumaSubMax 2
+              n           t(n)     t(n)/n^0.8         t(n)/n     t(n)/n^1.2
+(*)         500       1.350000       0.009357       0.002700       0.000779
+(*)        1000       2.382000       0.009483       0.002382       0.000598
+(*)        2000       4.291000       0.009811       0.002146       0.000469
+(*)        4000       8.040000       0.010559       0.002010       0.000383
+(*)        8000      14.844000       0.011196       0.001855       0.000307
+(*)       16000      28.654000       0.012413       0.001791       0.000258
+(*)       32000      54.860000       0.013650       0.001714       0.000215
+(*)       64000     106.720000       0.015251       0.001667       0.000182
+(*)      128000     220.570000       0.018104       0.001723       0.000164
+(*)      256000     461.530000       0.021757       0.001803       0.000149
+
+
+En los resultados obtenidos en las máquinas de los otros dos integrantes del grupo, los tiempos entre los ordenadores de cada uno de los integrantes del grupo, se ha seguido una tendencia similar.
+
+Nombre del dispositivo: brais-HP-Laptop-15s-fq2xxx
+Con un procesador 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz, un sistema operativo Ubuntu 22.04.3 LTS y un total de memoria RAM de 16Gib.
+Algoritmo 1:
+              n           t(n)     t(n)/n^1.8       t(n)/n^2     t(n)/n^2.2
+(*)         500     250.211000       0.003469       0.001001       0.000289
+           1000    1015.000000       0.004041       0.001015       0.000255
+           2000    3976.000000       0.004546       0.000994       0.000217
+           4000   16278.000000       0.005344       0.001017       0.000194
+           8000   63653.000000       0.006001       0.000995       0.000165
+          16000  253856.000000       0.006873       0.000992       0.000143
+          32000 1004157.000000       0.007808       0.000981       0.000123
+
+
+Algoritmo 2:
+              n           t(n)     t(n)/n^0.8         t(n)/n     t(n)/n^1.2
+(*)         500       1.319000       0.009143       0.002638       0.000761
+(*)        1000       2.659000       0.010586       0.002659       0.000668
+(*)        2000       4.865000       0.011124       0.002433       0.000532
+(*)        4000       8.710000       0.011439       0.002178       0.000415
+(*)        8000      16.108000       0.012150       0.002014       0.000334
+(*)       16000      30.980000       0.013421       0.001936       0.000279
+(*)       32000      56.936000       0.014167       0.001779       0.000223
+(*)       64000     111.927000       0.015995       0.001749       0.000191
+(*)      128000     217.814000       0.017878       0.001702       0.000162
+(*)      256000     427.215000       0.020140       0.001669       0.000138
+
+Por último en el ordenador de el intregante Gael García Arias los tiempos son algo superiores debido a que su hardware es algo inferior:
+Nombre del dispositivo: gaaelgarciia-IdeaPad-3-15ALC6
+Con un procesador AMD Ryzen 7-5700u, un sistema operativo kubuntu 23.04 y u  total disponible de 9,5Gib de memoria RAM.
+
+SumaSubMax 1
+              n           t(n)     t(n)/n^1.8       t(n)/n^2     t(n)/n^2.2
+(*)         500     258.350000       0.003581       0.001033       0.000298
+           1000    1033.000000       0.004112       0.001033       0.000259
+           2000    4059.000000       0.004641       0.001015       0.000222
+           4000   16247.000000       0.005334       0.001015       0.000193
+           8000   64748.000000       0.006105       0.001012       0.000168
+          16000  258460.000000       0.006998       0.001010       0.000146
+          32000 1033177.000000       0.008033       0.001009       0.000127
+
+SumaSubMax 2
+              n           t(n)     t(n)/n^0.8         t(n)/n     t(n)/n^1.2
+(*)         500       1.450000       0.010051       0.002900       0.000837
+(*)        1000       2.650000       0.010550       0.002650       0.000666
+(*)        2000       5.070000       0.011593       0.002535       0.000554
+(*)        4000       9.300000       0.012213       0.002325       0.000443
+(*)        8000      17.820000       0.013441       0.002227       0.000369
+(*)       16000      34.940000       0.015137       0.002184       0.000315
+(*)       32000      67.820000       0.016875       0.002119       0.000266
+(*)       64000     133.190000       0.019034       0.002081       0.000228
+(*)      128000     262.890000       0.021578       0.002054       0.000195
+         256000     518.000000       0.024420       0.002023       0.000168
+
+
+CONCLUSIONES
+Como observamos las cotas subestimadas sus valores tienden hacia infinito,crecen según aumenta el número de iteraciones(n), en las cotas ajustadas el primer algoritmo sus tiempos tienden hacia 0.0097ms y en el segundo algoritmo sus tiempos tienden hacia 0.0017ms ,en las cotas sobreestimadas sus valores decrecen y tienden a 0.
+Además los valores de la cota ajustada tienden a una constante en ambos algoritmos.
+En base a los tiempos obtenidos concluímos con que el segundo algoritmo es mucho más eficiente y rápido que el primero,ya que incluso con 256000 iteraciones tarda muchísimo menos que el primer algoritmo.
