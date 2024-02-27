@@ -1,7 +1,3 @@
-/*
-Gael Garcia Arias   gael.garciaa@udc.es
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
